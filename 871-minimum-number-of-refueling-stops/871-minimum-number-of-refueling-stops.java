@@ -1,32 +1,22 @@
 class Solution {
     public int minRefuelStops(int target, int tank, int[][] stations) {
-        // pq is a maxheap of gas station capacities
-        PriorityQueue<Integer> pq = new PriorityQueue(Collections.reverseOrder());
-        int ans = 0, prev = 0;
-        for (int[] station: stations) {
-            int location = station[0];
-            int capacity = station[1];
-            tank -= location - prev;
-            while (!pq.isEmpty() && tank < 0) {  // must refuel in past
-                tank += pq.poll();
-                ans++;
+        if(tank > target)
+            return 0 ;
+        
+        Queue<Integer> queue = new PriorityQueue<>(Collections.reverseOrder());
+        int i = 0, n = stations.length, stops = 0, maxDistance = tank;
+        while(maxDistance < target){
+            while(i < n && stations[i][0] <= maxDistance){
+                queue.offer(stations[i++][1]);
             }
-
-            if (tank < 0) return -1;
-            pq.offer(capacity);
-            prev = location;
+            
+            if(queue.isEmpty())
+                return -1;
+            
+            maxDistance += queue.poll();
+            stops++;
         }
-
-        // Repeat body for station = (target, inf)
-        {
-            tank -= target - prev;
-            while (!pq.isEmpty() && tank < 0) {
-                tank += pq.poll();
-                ans++;
-            }
-            if (tank < 0) return -1;
-        }
-
-        return ans;
+        
+        return stops;
     }
 }
