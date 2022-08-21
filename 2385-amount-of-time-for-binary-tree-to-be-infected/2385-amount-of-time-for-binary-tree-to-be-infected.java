@@ -24,10 +24,10 @@ class Solution {
         if(root == null)
             return;
         int val = root.val;
+        List<Integer> pn;
+        List<Integer> np ;
         if(root.left != null){
             int left = root.left.val;
-            List<Integer> pn;
-            List<Integer> np ;
             if(map.containsKey(val)){
                 pn = map.get(val);
                 pn.add(left);
@@ -52,8 +52,6 @@ class Solution {
         if(root.right != null){
             int right = root.right.val;
            
-            List<Integer> pn;
-            List<Integer> np ;
             if(map.containsKey(val)){
                 pn = map.get(val);
                 pn.add(right);
