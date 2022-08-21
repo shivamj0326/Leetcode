@@ -17,6 +17,8 @@ class Solution {
     Map<Integer, List<Integer>> map = new HashMap<>();
     public int amountOfTime(TreeNode root, int start) {   
         prepareGraph(root, map);
+        if(map.size() == 0)
+            return 0 ;
         return height(start, -1);
     }
     
@@ -81,7 +83,7 @@ class Solution {
         
         int max = 0;
         
-        for(int x : map.getOrDefault(root, new ArrayList<Integer>())){
+        for(int x : map.get(root)){
             if(parent == x)
                 continue;
             int height = height(x, root) + 1;
