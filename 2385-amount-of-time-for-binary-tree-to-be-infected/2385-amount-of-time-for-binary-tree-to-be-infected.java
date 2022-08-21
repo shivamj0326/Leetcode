@@ -17,8 +17,6 @@ class Solution {
     Map<Integer, List<Integer>> map = new HashMap<>();
     public int amountOfTime(TreeNode root, int start) {   
         prepareGraph(root, map);
-        if(map.size() == 1)
-            return 0 ;
         return height(start, -1);
     }
     
