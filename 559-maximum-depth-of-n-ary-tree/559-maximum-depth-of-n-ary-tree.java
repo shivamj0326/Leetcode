@@ -29,14 +29,10 @@ class Solution {
         q.offer(root);
         
         while(!q.isEmpty()){
-            
-            List<Integer> level = new ArrayList<>();
-            int size = q.size();
-            
+
+            int size = q.size(); 
             for(int i = 0 ; i < size; i++){
                 Node current = q.poll();
-                level.add(current.val);
-                
                 for(Node child : current.children){
                     if(child != null){
                         q.offer(child);
@@ -48,3 +44,4 @@ class Solution {
         return depth;
     }
 }
+
