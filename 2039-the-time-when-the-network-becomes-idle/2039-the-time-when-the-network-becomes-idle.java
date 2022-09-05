@@ -4,7 +4,7 @@ class Solution {
         List<List<Integer>> graph = buildGraph(edges, n);
         boolean[] visited = new boolean[n];
         Queue<Integer> q = new LinkedList<>();
-        
+        //time[i] : denotes the time taken by ith packet to reach zero and come back
         int[] time = new int[n];
         q.offer(0);
         visited[0] = true;
@@ -16,6 +16,7 @@ class Solution {
                 int current = q.poll();
                 for(int x : graph.get(current)){
                     if(!visited[x]){
+                        //actual time includes return journey as well, hence +2 instead of +1
                         time[x] = time[current] + 2;
                         visited[x] = true;
                         q.offer(x);
@@ -31,6 +32,7 @@ class Solution {
             packets = 0;
             if(time[i] > patience[i]){
                 packets = time[i]/patience[i];
+                // if patience[i] is multiple of time[i] then actual packets required will be 1 less
                 if(time[i] % patience[i] == 0)
                     packets--;
                 last = packets * patience[i];
