@@ -12,8 +12,8 @@ class Solution {
             count[Integer.bitCount(num)]++;
         }
         
-        for(int i = 1 ; i <= 30 ; i++){
-            for(int j = 1 ; j <= 30 ; j++){
+        for(int i = 1 ; i <= 31 ; i++){
+            for(int j = 1 ; j <= 31 ; j++){
                 if(i + j >= k){
                     ans += count[i] * count[j];
                 }
