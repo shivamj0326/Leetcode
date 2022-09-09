@@ -14,7 +14,7 @@ class Solution {
                     left++;
                     len++;
                 }
-                while(right > left && s.charAt(right) == ch){
+                while(right >= left && s.charAt(right) == ch){
                     right--;
                     len++;
                 }
