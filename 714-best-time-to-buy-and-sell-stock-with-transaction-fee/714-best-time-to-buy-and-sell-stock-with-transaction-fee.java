@@ -1,28 +1,24 @@
 class Solution {
-    int fee;
+    
     public int maxProfit(int[] prices, int fee) {
         int n = prices.length;
-        Integer[][] dp = new Integer[n + 1][2];
-        this.fee = fee;
-        return solve(prices, 0, 1, dp);
-    }
-    
-    public int solve(int[] prices, int index, int buy, Integer[][] dp){
-        if(index == prices.length)
-            return 0 ;
+        int[] current = new int[2];
+        int[] ahead = new int[2];
         
-        if(dp[index][buy] != null)
-            return dp[index][buy];
-        int profit = 0 ;
-        if(buy == 1){
-            profit = Math.max(-prices[index] + solve(prices, index + 1, 1 - buy, dp),
-                             solve(prices, index + 1, buy, dp));
-        }
-        else{
-            profit = Math.max(prices[index] - fee + solve(prices, index + 1, 1 - buy, dp),
-                             solve(prices, index + 1, buy, dp));
-        }
+        ahead[0] = 0;
+        ahead[1] = 0;
         
-        return dp[index][buy] = profit;
+        for(int i = n - 1 ; i >= 0 ; i--){
+            for(int j = 0 ; j <= 1; j++){
+                if(j == 1){
+                    current[1] = Math.max(-prices[i] + ahead[0], ahead[1]);
+                }
+                else{
+                    current[0] = Math.max(prices[i] - fee + ahead[1], ahead[0]);
+                }
+            }
+            ahead = current;
+        }
+        return ahead[1];
     }
 }
