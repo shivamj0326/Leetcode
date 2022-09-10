@@ -27,7 +27,10 @@ class Solution {
             List<Integer> currentList = new ArrayList<>();
             for(int i = 0 ; i < len; i++){
                 TreeNode current = q.poll();
-                currentList.add(current.val);
+                if(flag)
+                    currentList.add(0,current.val);
+                else
+                    currentList.add(current.val);
                 
                 if(current.left != null)
                     q.offer(current.left);
@@ -36,9 +39,7 @@ class Solution {
                     q.offer(current.right);
                     
             }
-            if(flag){
-                Collections.reverse(currentList);
-            }
+            
             res.add(currentList);
             flag = !flag;
             
