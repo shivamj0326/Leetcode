@@ -16,27 +16,24 @@
 class Solution {
     int ans = 0;
     public int pseudoPalindromicPaths (TreeNode root) {
-        Set<Integer> nodes = new HashSet<>();
-        dfs(root, nodes);
+        int path = 0 ;
+        dfs(root, path);
         return ans;        
     }
     
-    public void dfs(TreeNode root, Set<Integer> nodes){
+    public void dfs(TreeNode root, int path){
         if(root == null)
             return;
-        if(nodes.contains(root.val))
-            nodes.remove(root.val);
-        else{
-            nodes.add(root.val);
-        }
+        path = path ^ (1 << root.val);
+        
             
         if(root.left == null && root.right == null){
-            if(nodes.size() <= 1){
+            if(path == 0 || (path & (path - 1)) == 0){
                 ans++;
             }
         }
             
-        dfs(root.left, new HashSet<>(nodes));
-        dfs(root.right, new HashSet<>(nodes));
+        dfs(root.left, path);
+        dfs(root.right, path);
     }
 }
