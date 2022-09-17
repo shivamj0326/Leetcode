@@ -4,7 +4,7 @@ class Solution {
         Arrays.sort(nums);
         int n = nums.length;
         
-        for(int i = 0 ; i < n ; i++){
+        for(int i = 0 ; i < n && nums[i] <= 0; i++){
             int target = - nums[i];
             int left = i + 1;
             int right = n - 1;
