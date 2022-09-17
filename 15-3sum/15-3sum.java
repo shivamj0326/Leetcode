@@ -20,8 +20,6 @@ class Solution {
                     triplets.add(List.of(nums[i], nums[left], nums[right]));
                     while(left + 1 < n && nums[left + 1] == nums[left])
                         left++;
-                    while(right - 1 >= 0 && nums[right - 1] == nums[right])
-                        right--;
                     left++;
                     right--;
                 }
