@@ -3,9 +3,6 @@ class Solution {
         int n = t.length;
         
         Arrays.sort(t, (a, b) -> {
-            if(a[1] == b[1]){
-                return b[0]  - a[0];
-            }
             return a[1] - b[1];
         });
        long money = 0, max = 0 , min = 0;
