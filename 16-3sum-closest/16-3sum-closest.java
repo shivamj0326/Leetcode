@@ -18,7 +18,7 @@ class Solution {
                 else if(sum < target)
                     left++;
                 else
-                    break;
+                    return sum;
             }   
         }
         return res;
