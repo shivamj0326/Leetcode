@@ -16,11 +16,11 @@ class Solution {
                     left++;
                 else if(nums[left] != nums[right]){
                     int j = 1, k = 1;
-                    while(left + 1 < n && nums[left + 1] == nums[left]){
+                    while(left + 1 < right && nums[left + 1] == nums[left]){
                         j++;
                         left++;
                     }
-                    while(right - 1 >= 0  && nums[right - 1] == nums[right]){
+                    while(right - 1 > left  && nums[right - 1] == nums[right]){
                         right--;
                         k++;
                     }
