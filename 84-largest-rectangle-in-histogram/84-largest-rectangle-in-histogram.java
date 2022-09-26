@@ -23,16 +23,9 @@ class Solution {
             int x = heights[i];
             int count = 1 ;
             
-            if(stackLeft.size() == 0){
-               
-            }
-            else if(stackLeft.peek().first < x){
-                
-            }
-            else{
-                while(stackLeft.size() > 0 && stackLeft.peek().first >= x){
-                    count += stackLeft.poll().second;
-                }
+            
+            while(stackLeft.size() > 0 && stackLeft.peek().first >= x){
+                count += stackLeft.poll().second;
             }
             
             stackLeft.push(new Pair(x, count));
@@ -43,19 +36,9 @@ class Solution {
             int x = heights[i];
             int count = 1 ;
             
-            if(stackRight.size() == 0){
-                
+            while(stackRight.size() > 0 && stackRight.peek().first >= x){
+                count += stackRight.poll().second;
             }
-            else if(stackRight.peek().first < x){
-                
-            }
-            else{
-                while(stackRight.size() > 0 && stackRight.peek().first >= x){
-                    count += stackRight.poll().second;
-                }
-                
-            }
-            
             stackRight.push(new Pair(x, count));
             maxi[i] += count;
                
