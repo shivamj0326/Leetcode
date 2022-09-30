@@ -8,8 +8,6 @@ class Solution {
                 duplicates++;
             count[s.charAt(i) - 'a']++;
             
-            if(i < 2)
-                continue;
             
             if(i >= 3){
                 if(count[s.charAt(i - 3) - 'a'] == 2)
