@@ -41,6 +41,10 @@ class NumArray {
             return segmentTree[index];
         
         int mid = low + (high - low)/2 ;
+        if(low > mid)
+            return querySumRange(2 * index + 2, mid + 1, high, left, right);
+        else if(high <= mid)
+            return querySumRange(2 * index + 1, low, mid, left, right);
         
         int l = querySumRange(2 * index + 1, low, mid, left, right);
         int r = querySumRange(2 * index + 2, mid + 1, high, left, right);
