@@ -4,9 +4,8 @@ class SegmentTree{
         //init tree
         public SegmentTree(int n){
             this.n=n;
-            int height=(int)(Math.ceil(Math.log(n)/Math.log(2)));
-            int size=2*((int)Math.pow(2,height)) -1;
-            tree=new int[size];
+            
+            tree=new int[4 * n];
         }
         
         public int query(int left,int right){
