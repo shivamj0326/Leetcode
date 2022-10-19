@@ -1,16 +1,16 @@
 class Solution {
     public boolean[] friendRequests(int n, int[][] restrictions, int[][] requests) {
         boolean[] ans = new boolean[requests.length];
-        DSU dsu = new DSU(n);
+        UnionFind uf = new UnionFind(n);
         
         for(int i=0; i<requests.length; i++) {
             int u = requests[i][0], v = requests[i][1];
-            int up = dsu.find(u), vp = dsu.find(v);
+            int up = uf.find(u), vp = uf.find(v);
             ans[i] = true;
             
             for(int[] restriction : restrictions) {
                 int x = restriction[0], y = restriction[1];
-                int xp = dsu.find(x), yp = dsu.find(y);
+                int xp = uf.find(x), yp = uf.find(y);
                 
                 if( (xp == up && yp == vp) || (yp == up && xp == vp) ) {
                     ans[i] = false;
@@ -18,26 +18,27 @@ class Solution {
                 } 
             }
             if( ans[i] )
-                dsu.union(up, vp);
+                uf.union(up, vp);
         }
         return ans;
     }
 }
-class DSU {
-    private int[] parent, rank;
+class UnionFind {
+    private int[] root, rank;
     
-    public DSU(int n) {
-        parent = new int[n];
+    public UnionFind(int n) {
+        root = new int[n];
         rank = new int[n];
         
         for(int i=0; i<n; i++)
-            parent[i] = i;
+            root[i] = i;
+           
     }
     
     public int find(int x) {
-        if( parent[x] != x )
-            parent[x] = find(parent[x]);
-        return parent[x];
+        if( root[x] != x )
+            root[x] = find(root[x]);
+        return root[x];
     }
     
     public boolean union(int x, int y) {
@@ -46,11 +47,11 @@ class DSU {
         if( px == py ) return false;
         
         if( rank[py] > rank[px] ) 
-            parent[px] = py;
+            root[px] = py;
         else if( rank[px] > rank[py] )
-            parent[py] = px;
+            root[py] = px;
         else {
-            parent[py] = px;
+            root[py] = px;
             rank[px] += 1;
         }
         return true;
