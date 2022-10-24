@@ -15,18 +15,15 @@ class Solution {
         
         int pick = 0, notpick = 0;
         
-        
+        String current = arr.get(index);
         if(canPick){
             
-            String current = arr.get(index);
             for(char c : current.toCharArray()){
                 count[c - 'a']++;
-                len++;
             }
-            pick = solve(arr, index + 1, count, len);
+            pick = solve(arr, index + 1, count, len + current.length());
             for(char c : current.toCharArray()){
                 count[c - 'a']--;
-                len--;
             }
             
             notpick = solve(arr, index + 1, count, len);
