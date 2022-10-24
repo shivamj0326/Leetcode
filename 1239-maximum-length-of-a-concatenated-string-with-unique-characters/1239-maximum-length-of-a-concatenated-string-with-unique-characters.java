@@ -22,12 +22,10 @@ class Solution {
         
         boolean canPick = canpick(count, arr.get(index));
         
-        boolean isUnique = isUnique(arr.get(index));
-        
         int pick = 0, notpick = 0;
         
         
-        if(canPick && isUnique){
+        if(canPick){
             
             String current = arr.get(index);
             for(char c : current.toCharArray()){
@@ -48,18 +46,11 @@ class Solution {
     }
                            
     public boolean canpick(int[] count, String s){
+        int a = 0 ;
+        
         for(char c : s.toCharArray()){
             if(count[c - 'a'] == 1)
                 return false;
-        }
-        
-        return true;
-    }
-    
-    public boolean isUnique(String s){
-        
-        int a = 0 ;
-        for(char c : s.toCharArray()){
             if((a & (1 << (c - 'a'))) == 0)
                 a = a | (1 << (c - 'a'));
             else
@@ -67,7 +58,5 @@ class Solution {
         }
         
         return true;
-    }
-                           
-                           
+    }         
 }
