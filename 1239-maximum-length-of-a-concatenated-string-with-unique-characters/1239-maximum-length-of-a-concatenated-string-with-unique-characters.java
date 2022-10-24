@@ -1,74 +1,31 @@
 class Solution {
-    public int maxLength(List<String> arr) {
-        
-        int max = 0 ;
-        
-        for(int i = 0 ; i < arr.size(); i++){
-            max = Math.max(max, solve(arr, i, new int[26]));
+        public int maxLength(List<String> arr) {
+        if (arr == null || arr.size() == 0) return 0;
+        int[] max = new int[1];
+        dfs("", 0, arr, max);
+        return max[0];
+    }
+    
+    boolean isUniqueChars(String s){
+        boolean[] set = new boolean[26];
+        for (char c : s.toCharArray()) {
+            if (set[c-'a']) return false;
+            set[c-'a'] = true; 
         }
-        
-        return max;
+        return true;
+    }
 
-    }
-    
-    public int solve(List<String> arr, int index, int[] count){
-        if(index == arr.size()){
-            int ans = 0 ;
-            
-            for(int i = 0 ; i < count.length ; i++){
-                ans += count[i] > 0 ? 1 : 0 ;
-            }
-            
-            return ans;
+    void dfs(String path, int index, List<String> arr, int[] max) {
+        if (!isUniqueChars(path)) return;
+        
+        max[0] = Math.max(max[0], path.length());
+        if (index == arr.size()) return;
+        
+        // for each string in arr
+        for (int i = index; i < arr.size(); i++) {
+            if (!isUniqueChars(arr.get(i))) continue;
+            // try subsequent strings in arr
+            dfs(path + arr.get(i), i+1, arr, max);
         }
-        
-        boolean canPick = canpick(count, arr.get(index));
-        
-        boolean isUnique = isUnique(arr.get(index));
-        
-        int pick = 0, notpick = 0;
-        
-        
-        if(canPick && isUnique){
-            String current = arr.get(index);
-            for(char c : current.toCharArray()){
-                count[c - 'a']++;
-            }
-            pick = solve(arr, index + 1, count);
-            for(char c : current.toCharArray()){
-                count[c - 'a']--;
-            }
-            
-            notpick = solve(arr, index + 1, count);
-        }
-        else{
-            notpick = solve(arr, index + 1, count);
-        }
-        
-        return Math.max(pick, notpick);        
-    }
-                           
-    public boolean canpick(int[] count, String s){
-        for(char c : s.toCharArray()){
-            if(count[c - 'a'] == 1)
-                return false;
-        }
-        
-        return true;
-    }
-    
-    public boolean isUnique(String s){
-        
-        Set<Character> set = new HashSet<>();
-        for(char c : s.toCharArray()){
-            if(set.contains(c))
-                return false;
-            else
-                set.add(c);
-        }
-        
-        return true;
-    }
-                           
-                           
+    }           
 }
