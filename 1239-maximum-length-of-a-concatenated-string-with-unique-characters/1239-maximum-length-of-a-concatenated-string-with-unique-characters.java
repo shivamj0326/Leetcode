@@ -28,6 +28,7 @@ class Solution {
         
         
         if(canPick && isUnique){
+            
             String current = arr.get(index);
             for(char c : current.toCharArray()){
                 count[c - 'a']++;
@@ -57,12 +58,12 @@ class Solution {
     
     public boolean isUnique(String s){
         
-        Set<Character> set = new HashSet<>();
+        int a = 0 ;
         for(char c : s.toCharArray()){
-            if(set.contains(c))
-                return false;
+            if((a & (1 << (c - 'a'))) == 0)
+                a = a | (1 << (c - 'a'));
             else
-                set.add(c);
+                return false;
         }
         
         return true;
