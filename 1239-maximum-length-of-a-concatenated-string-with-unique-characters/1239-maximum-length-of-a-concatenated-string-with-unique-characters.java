@@ -14,7 +14,7 @@ class Solution {
             int ans = 0 ;
             
             for(int i = 0 ; i < count.length ; i++){
-                ans += count[i] > 0 ? 1 : 0 ;
+                ans += count[i];
             }
             
             return ans;
