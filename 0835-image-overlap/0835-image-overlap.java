@@ -10,10 +10,10 @@ class Solution {
         
         for(int i = 0 ; i < n * n ; i++){
             if(img1[i/n][i % n] == 1)
-                la.add(i/n * 100 + i % n);
+                la.add(i/n * 60 + i % n);
             
             if(img2[i/n][i % n] == 1)
-                lb.add(i/n * 100 + i % n);
+                lb.add(i/n * 60 + i % n);
         }
         
         for(int i : la){
