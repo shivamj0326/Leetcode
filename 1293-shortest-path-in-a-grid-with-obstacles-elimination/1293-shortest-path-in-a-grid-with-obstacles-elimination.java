@@ -1,28 +1,55 @@
 class Solution {
-    int[] dirs = {0, 1, 0, -1, 0};
+    
+    class Pair{
+        int row;
+        int col;
+        int obs;
+        int dist;
+        
+        Pair(int row, int col, int dist, int obs){
+            this.row = row;
+            this.col = col;
+            this.dist = dist;
+            this.obs = obs;
+        }
+    }
     public int shortestPath(int[][] grid, int k) {
-        int m = grid.length, n = grid[0].length;
-        if (k >= m+n-2) return m+n-2; // if we can go by manhattan distance -> let's go
-
-        boolean[][][] visited = new boolean[m][n][k+1];
-        Queue<int[]> q = new LinkedList<>();
-        q.offer(new int[]{0, 0, 0, 0}); // r, c, k, dist
+        
+        int dir[][] = new int[][]{{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
+        int m = grid.length;
+        int n = grid[0].length;
+        
+        
+        boolean[][][] visited = new boolean[m][n][k + 1];
+        
+        Queue<Pair> q = new LinkedList<>();
+        
+        q.offer(new Pair(0, 0, 0, 0));
         visited[0][0][0] = true;
-
-        while (!q.isEmpty()) {
-            int[] top = q.poll();
-            int r = top[0], c = top[1], curK = top[2], dist = top[3];
-            if (r == m - 1 && c == n - 1) return dist; // Found the result
-            for (int i = 0; i < 4; i++) {
-                int nr = r + dirs[i], nc = c + dirs[i + 1];
-                if (nr < 0 || nr == m || nc < 0 || nc == n) continue; // skip out of bound cells!
-                int newK = curK + grid[nr][nc];
-                if (newK <= k && !visited[nr][nc][newK]) {
-                    visited[nr][nc][newK] = true;
-                    q.offer(new int[]{nr, nc, newK, dist + 1});
+        
+        while(!q.isEmpty()){
+            Pair current = q.poll();
+            
+            if(current.row == m - 1 && current.col == n - 1)
+                return current.dist;
+            
+            for(int[] d : dir){
+                int row = current.row + d[0];
+                int col = current.col + d[1];
+                
+                if(row < 0 || row >= m || col < 0 || col >= n)
+                    continue;
+                
+                if(current.obs + grid[row][col] > k)
+                    continue;
+                
+                if(!visited[row][col][current.obs + grid[row][col]]){
+                    visited[row][col][current.obs + grid[row][col]] = true;
+                    q.offer(new Pair(row, col, current.dist + 1, current.obs + grid[row][col]));
                 }
             }
         }
-        return -1; // Not found
+        
+        return -1;     
     }
 }
