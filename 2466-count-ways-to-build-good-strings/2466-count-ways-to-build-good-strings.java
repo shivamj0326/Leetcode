@@ -2,11 +2,6 @@ class Solution {
     int MOD = 1000000007;
     public int countGoodStrings(int low, int high, int zero, int one) {
         
-        if(zero > one){
-            int temp = one;
-            one = zero;
-            zero = temp;
-        }
         
         long sum = 0 ;
         long[] dp  = new long[1000001];
