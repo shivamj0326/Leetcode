@@ -1,23 +1,23 @@
 class Solution {
     public int nthUglyNumber(int n) {
-        PriorityQueue<Integer> q = new PriorityQueue<>();
-        Set<Integer> visited = new HashSet<>();
-        int count = 0;
-        q.offer(1);
+        int[] dp = new int[n + 1];
         
-        while(!q.isEmpty()){
-            int current = q.poll();
-            count++;
-            if(count == n)
-                return current;
-            if(current <= Integer.MAX_VALUE/2 && visited.add(current * 2))
-                q.offer(current * 2);
-            if(current <= Integer.MAX_VALUE/3  && visited.add(current * 3))
-                q.offer(current * 3);
-            if(current <= Integer.MAX_VALUE/5  && visited.add(current * 5))
-                q.offer(current * 5);
+        dp[0] = 1;
+        
+        int p = 0 , i = 0, j = 0, k = 0;
+        int min = 0;
+        while(p < n){
+            min = Math.min(Math.min(dp[i] * 2, dp[j] * 3), dp[k] * 5);
+            dp[++p] = min;
+            
+            if(min == dp[i] * 2)
+                i++;
+            if(min == dp[j] * 3)
+                j++;
+            if(min == dp[k] * 5)
+                k++;
         }
         
-        return -1;
+        return dp[n - 1];
     }
 }
