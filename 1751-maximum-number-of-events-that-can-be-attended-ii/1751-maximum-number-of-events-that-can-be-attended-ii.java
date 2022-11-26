@@ -5,32 +5,32 @@ class Solution {
                 return a[1] - b[1];
             return a[0] - b[0];
         });
-        
+        int max = 0 ;
        
-        Integer[][] dp = new Integer[events.length + 1][k + 1];
+            Integer[][] dp = new Integer[events.length + 1][k + 1];
             
-        return solve(events, 0, k, 0, 0, dp);
+        return solve(events, 0, k, -1, 0, dp);
         
         
     }
     
-    public int solve(int[][] events, int index, int k, int preIndex, int endTime, Integer[][] dp){
+    public int solve(int[][] events, int index, int k, int pre, int endTime, Integer[][] dp){
         if(index >= events.length || k == 0)
             return 0 ;
         
-        if(preIndex >= 0 && dp[preIndex][k] != null)
-            return dp[preIndex][k];
+        if(pre >= 0 && dp[pre][k] != null)
+            return dp[pre][k];
         
         int pick = 0, notpick = 0 ;
         if(events[index][0] > endTime){
             pick = events[index][2] + solve(events, index + 1 , k - 1, index, events[index][1], dp);
         }
             
-        notpick = solve(events, index + 1, k, preIndex, endTime, dp);
-        
+        notpick = solve(events, index + 1, k, pre, endTime, dp);
         int ans = Math.max(pick, notpick);
-        if(preIndex >= 0)
-            dp[preIndex][k] = ans;
+        if(pre >= 0){
+            dp[pre][k] = ans;
+        }
        
         return ans;
     }
