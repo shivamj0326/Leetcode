@@ -11,7 +11,7 @@ class Solution {
         }
         
         for(int i = 1 ; i < (1 << n) ; i++){
-            List<Integer> subtree = new ArrayList<>();
+            Set<Integer> subtree = new HashSet<>();
             
             for(int j = 0 ; j < n ; j++){
                 if((i & (1 << j)) != 0){
@@ -33,8 +33,9 @@ class Solution {
             
              max = 0 ;
             
-            visited.add(subtree.get(0));
-            int depth = dfs(graph, subtree.get(0), visited, subtree);
+            int curr = subtree.iterator().next();
+            visited.add(curr);
+            int depth = dfs(graph, curr, visited, subtree);
                 
             ans[max - 1]++;
             
@@ -45,7 +46,7 @@ class Solution {
             return ans;
     }
     
-    public int dfs(Map<Integer, Set<Integer>> graph, int current, Set<Integer> visited, List<Integer> subtree){
+    public int dfs(Map<Integer, Set<Integer>> graph, int current, Set<Integer> visited, Set<Integer> subtree){
         int m1 = 0 , m2 = 0 ;
         int depth = 0 ;
         for(int i : graph.get(current)){
