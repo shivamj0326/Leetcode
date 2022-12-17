@@ -2,11 +2,7 @@ class Solution {
     public int evalRPN(String[] tokens) {
         Deque<Integer> stack = new ArrayDeque<>();
         Set<String> operators = Set.of("*", "+", "-", "/");
-        
-        if(tokens.length == 1){
-            return Integer.parseInt(tokens[0]);
-        }
-        
+       
         
         for(String s : tokens){
             if(operators.contains(s)){
