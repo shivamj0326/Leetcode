@@ -1,24 +1,24 @@
-class Solution {
+class Solution{
+    int deepest = 0 ;
+    TreeNode lca = null;
+    
     public TreeNode lcaDeepestLeaves(TreeNode root) {
-        return dfs(root).node;
+        helper(root, 0);
+        return lca;
     }
 
-    // Return the result of the subtree at this node.
-    public Result dfs(TreeNode node) {
-        if (node == null) return new Result(null, 0);
-        Result L = dfs(node.left),
-               R = dfs(node.right);
-        if (L.dist > R.dist) return new Result(L.node, L.dist + 1);
-        if (L.dist < R.dist) return new Result(R.node, R.dist + 1);
-        return new Result(node, L.dist + 1);
+    private int helper(TreeNode node, int depth) {
+        
+        if (node == null) {
+            deepest = Math.max(deepest, depth);
+            return depth;
+        }
+        int left = helper(node.left, depth + 1);
+        int right = helper(node.right, depth + 1);
+        if (left == deepest && right == deepest) {
+            lca = node;
+        }
+        return Math.max(left, right);
     }
 }
-
-class Result {
-    TreeNode node;
-    int dist;
-    Result(TreeNode n, int d) {
-        node = n;
-        dist = d;
-    }
-}
+    
