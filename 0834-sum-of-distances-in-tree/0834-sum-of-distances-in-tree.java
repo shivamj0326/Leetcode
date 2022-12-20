@@ -1,39 +1,50 @@
 class Solution {
-    int[] ans, count;
+    int[] res, count;
     List<Set<Integer>> graph;
-    int N;
-    public int[] sumOfDistancesInTree(int N, int[][] edges) {
-        this.N = N;
-        graph = new ArrayList<Set<Integer>>();
-        ans = new int[N];
-        count = new int[N];
+    int n;
+    public int[] sumOfDistancesInTree(int n, int[][] edges) {
+        this.n = n;
+        res = new int[n];
+        count = new int[n];
         Arrays.fill(count, 1);
-
-        for (int i = 0; i < N; ++i)
+        
+        graph = new ArrayList<Set<Integer>>();
+        
+        for(int i = 0 ; i < n ; i++){
             graph.add(new HashSet<Integer>());
-        for (int[] edge: edges) {
-            graph.get(edge[0]).add(edge[1]);
-            graph.get(edge[1]).add(edge[0]);
         }
-        dfs(0, -1);
-        dfs2(0, -1);
-        return ans;
+        
+        for(int[] e : edges){
+            graph.get(e[0]).add(e[1]);
+            graph.get(e[1]).add(e[0]);
+        }
+       
+        postorder(0, -1);
+        preorder(0, -1);
+        
+        return res;
     }
-
-    public void dfs(int node, int parent) {
-        for (int child: graph.get(node))
-            if (child != parent) {
-                dfs(child, node);
-                count[node] += count[child];
-                ans[node] += ans[child] + count[child];
-            }
+    
+    public void postorder(int root, int par){
+        for(int x : graph.get(root)){
+            if(x == par)
+                continue;
+            postorder(x, root);
+            count[root] += count[x];
+            res[root] += res[x] + count[x];
+        }
+        
     }
-
-    public void dfs2(int node, int parent) {
-        for (int child: graph.get(node))
-            if (child != parent) {
-                ans[child] = ans[node] - count[child] + N - count[child];
-                dfs2(child, node);
-            }
+    
+    public void preorder(int root, int par){
+        for(int x : graph.get(root)){
+            if(x == par)
+                continue;
+            
+            res[x] = res[root] + n - 2 * count[x];
+            preorder(x, root);
+        }
     }
+    
+    
 }
