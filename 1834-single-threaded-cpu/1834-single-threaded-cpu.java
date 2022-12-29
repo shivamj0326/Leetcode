@@ -20,7 +20,7 @@ class Solution {
         // currentTime = t[0][1];
         // currentTime += t[0][2];
         
-        while(i < n){
+        while(index < n){
             
             while(i < n && currentTime >= t[i][1]){
                 q.offer(t[i++]);
@@ -38,9 +38,7 @@ class Solution {
             
         }
         
-        while(!q.isEmpty()){
-            res[index++] = q.poll()[0];
-        }
+        
         
         return res;
     }
