@@ -10,13 +10,12 @@ class Solution {
     }
     
     public int solve(int l, int r, String s, String t){
-        if(l == m && r == n)
+        
+        if(r == n)
             return 1;
         
         if(l == m)
             return 0 ;
-        if(r == n)
-            return 1;
         
         if(dp[l][r] != null)
             return dp[l][r];
