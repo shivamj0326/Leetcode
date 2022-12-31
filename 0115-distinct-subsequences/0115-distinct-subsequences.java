@@ -1,17 +1,21 @@
 class Solution {
     Integer[][] dp ;
+    int m ;
+    int n;
     public int numDistinct(String s, String t) {
-        dp = new Integer[s.length() + 1][t.length() + 1];
+        m = s.length();
+        n = t.length();
+        dp = new Integer[m + 1][n + 1];
         return solve(0, 0, s, t);
     }
     
     public int solve(int l, int r, String s, String t){
-        if(l == s.length() && r == t.length())
+        if(l == m && r == n)
             return 1;
         
-        if(l >= s.length())
+        if(l == m)
             return 0 ;
-        if(r >= t.length())
+        if(r == n)
             return 1;
         
         if(dp[l][r] != null)
