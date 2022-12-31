@@ -17,11 +17,10 @@ class Solution {
         
         for(int i = 1 ; i <= n ; i++){
             for(int j = i + 1 ; j <= n ; j++){
-                if(!graph.get(i).contains(j))
-                    continue;
                 for(int k = j + 1 ; k <= n ; k++){
-                    
-                    if(graph.get(i).contains(k) && graph.get(j).contains(k)){
+                    if(i == j || j == k || i == k)
+                        continue;
+                    if(graph.get(i).contains(k) && graph.get(j).contains(k) && graph.get(i).contains(j)){
                         sum = d[i] + d[j] + d[k] - 6;
                         min = Math.min(min, sum);
                     }
