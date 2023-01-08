@@ -1,7 +1,12 @@
 class Solution {
     
     public int subsetXORSum(int[] nums) { 
-        return dfs(nums, 0, 0);    
+        int ans = 0 ;
+        
+        for(int i : nums)
+            ans |= i;
+        
+        return (int)(ans * (Math.pow(2, nums.length - 1)));
     }
     
     public int dfs(int[] nums, int index, int current){
