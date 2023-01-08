@@ -38,8 +38,6 @@ class Solution {
         if(N == L || N == K + 1)
             return dp[N][L] = fact[N];
         
-       
-        
         if(dp[N][L] != 0)
             return dp[N][L];
         
