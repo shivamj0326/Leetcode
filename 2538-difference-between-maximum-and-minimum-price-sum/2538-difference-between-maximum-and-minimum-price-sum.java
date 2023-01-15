@@ -2,7 +2,7 @@ class Solution {
     private long max;
     private ArrayList<Integer>[] tree;
     private int[] price;
-    private HashMap<Long, Long> memo;
+    private HashMap<String, Long> memo;
     
     public long maxOutput(int n, int[][] edges, int[] price) {
         this.price = price;
@@ -27,7 +27,7 @@ class Solution {
     }
     
     private long helper(int parent, int node) {
-        long key = (long)(parent + 1) * 1_000_000 + node;
+        String key = parent + " " + node;
         if (memo.containsKey(key)) return memo.get(key);
         
         long res = price[node];
