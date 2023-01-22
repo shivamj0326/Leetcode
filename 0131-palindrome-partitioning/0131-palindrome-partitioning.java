@@ -1,31 +1,26 @@
 class Solution {
     public List<List<String>> partition(String s) {
         List<List<String>> res = new ArrayList<>();
-        dfs(0, res, new ArrayList<String>(), s);
+        int n = s.length();
+        boolean[][] dp = new boolean[n][n];
+        dfs(0, res, new ArrayList<String>(), s, dp);
         return res;
     }
     
-    void dfs(int index, List<List<String>> res, List<String> current, String s){
+    void dfs(int index, List<List<String>> res, List<String> current, String s, boolean[][] dp){
         if(index >= s.length()){
             res.add(new ArrayList<>(current));
             return;
         }
         
         for(int i = index ; i < s.length(); i++){
-            if(isPalindrome(s, index, i)){
+            if(s.charAt(index) == s.charAt(i) && (i - index <= 2 || dp[index + 1][i - 1] == true)){
+                dp[index][i] = true;
                 current.add(s.substring(index, i + 1));
-                dfs(i + 1, res, current, s);
+                dfs(i + 1, res, current, s, dp);
                 current.remove(current.size() - 1);
             }
         }
     }
-    
-    boolean isPalindrome(String s, int low, int high){
-        while(low < high){
-            if(s.charAt(low++) != s.charAt(high--))
-                return false;
-        }
-        
-        return true;
-    }
+
 }
