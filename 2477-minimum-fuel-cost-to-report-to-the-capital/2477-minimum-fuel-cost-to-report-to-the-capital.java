@@ -31,7 +31,7 @@ class Solution {
             people += dfs(i, graph, node);
             
         }
-        
+
         cost += people/seats + (people % seats == 0 ? 0 : 1);
         return people;
         
