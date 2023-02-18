@@ -1,32 +1,23 @@
 class Solution {
     public int numberOfSubstrings(String s) {
-        //use a dynamic sliding window with aux DS
-        Map<Character, Integer> charFreqMap = new HashMap<>();
-        int numSubstrings = 0;
-        int leftWindowIdx = 0;
-        
-        //basic window algorithm set up
-        for(int rightWindowIdx = 0; rightWindowIdx < s.length(); rightWindowIdx++){
-            //increase the window size
-            char rightChar = s.charAt(rightWindowIdx);
-            //add the freq of a,b,c
-            charFreqMap.put(rightChar, charFreqMap.getOrDefault(rightChar, 0) + 1);
+        Map<Character, Integer> map = new HashMap<>();
+        int res = 0, left = 0 ;
+        for(int i = 0 ; i < s.length(); i++){
+            char ch = s.charAt(i);
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
             
-            //if a,b,c freq are all >= 1 we can reduce the window until we break OG condition
-            while(charFreqMap.size() >= 3){
-                //close window and decrease char count for left-most char
-                char leftChar = s.charAt(leftWindowIdx);
-                charFreqMap.put(leftChar, charFreqMap.get(leftChar) - 1);
-                //don't forget to remove any empty char count
-                if(charFreqMap.get(leftChar) == 0){
-                    charFreqMap.remove(leftChar);
-                }
-                //close window 
-                leftWindowIdx++;
+            while(map.size() >= 3){
+                char rm = s.charAt(left);
+                map.put(rm, map.get(rm) - 1);
+                if(map.get(rm) == 0)
+                    map.remove(rm);
+                left++;
+                
             }
-            //each idx after closing will be equal to the number of substrings after this idx
-            numSubstrings += leftWindowIdx;
+            res += left;
+            
         }
-        return numSubstrings;
+        
+        return res;
     }
 }
