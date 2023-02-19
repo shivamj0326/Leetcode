@@ -9,7 +9,7 @@ class Solution {
             if(g != null && nums[i] <= (long)g + t)
                 return true;
             set.add(nums[i]);
-            if(set.size() > k)
+            if(i >= k)
                 set.remove(nums[i - k]);
         }
         return false;
