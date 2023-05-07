@@ -1,0 +1,1 @@
+Sum of row and col co-ordinate for diagonal cell will be equal to size of matrix
